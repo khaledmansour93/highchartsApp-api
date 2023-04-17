@@ -6,6 +6,10 @@ The goal of this project is to display temperature for a week on a column chart 
 
 For this project, angular-highcharts is included using the [distribution package](https://www.npmjs.com/package/angular-highcharts)
 
+## How to use weather API?
+
+Please refer to this [documentation](https://www.weather.gov/documentation/services-web-api)
+
 ## Development environment
 
 - Nodejs v16.15.1
