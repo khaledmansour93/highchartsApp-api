@@ -1,27 +1,42 @@
 # HighchartsAppApi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.5.
+## Project Objective
 
-## Development server
+The goal of this project is to display weather forecast for a week on a column chart in an Angular app using angular-highcharts library and weather API
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Project Components
 
-## Code scaffolding
+Our project consists of angular-highcharts column chart populated with weather forecast for a week retrieved from weather API
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies used
 
-## Build
+- Angular
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Development environment
 
-## Running unit tests
+- Nodejs v16.15.1
+- npm v8.11.0
+- Angular CLI v15.2.6
+- IDE: VS Code
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## How to use weather API?
 
-## Running end-to-end tests
+Please refer to this [documentation](https://www.weather.gov/documentation/services-web-api)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Procedures
 
-## Further help
+1. Create an Angular project called _highchartsApp-api_ using the following command: ng new highchartsApp-api
+2. Create a component called _highcharts-chart_ using the following command: ng g c highcharts-chart
+3. Download and install [angular-highcharts](https://www.npmjs.com/package/angular-highcharts) using npm
+4. Import _ChartModule_ by adding _import { ChartModule } from 'angular-highcharts';_ to _app.module.ts_
+5. Add _ChartModule_ to imports array in _app.module.ts_
+6. Import _Chart_ by adding _import { Chart } from 'angular-highcharts';_ to _highcharts-chart.component.ts_
+7. Add chart configuration to _highcharts-chart.component.ts_
+8. Add chart to template _highcharts-chart.component.html_
+9. Import _HttpClientModule_ by adding _import { HttpClientModule } from '@angular/common/http';_ to _app.module.ts_ to make HTTP requests like GET & POST, etc. to the back end server
+10. Add _HttpClientModule_ to imports array in _app.module.ts_
+11. Import _HttpClient_ by adding _import { HttpClient } from '@angular/common/http';_ to _highcharts-chart.component.ts_  to make HTTP requests to back end server
+12. Implement logic as explained in _highcharts-chart.component.ts_
+13. Build app using the following command: ng-serve-o and the output should appear as follows:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![highchartsApp-api 2](https://user-images.githubusercontent.com/41340307/234836218-3de373c5-ec7c-49fa-a411-a0ecabad69a7.PNG)
