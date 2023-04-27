@@ -18,18 +18,17 @@ export class HighchartsChartComponent implements OnInit {
 
   constructor(public http: HttpClient) { } // Injecting HttpClient service
 
-  ngOnInit(): void {
+  ngOnInit(): void {  // On chart load, the code block here will execute
     this.getTemp(); // Function to get and display temperatures on chart
   }
 
   public getTemp() {
-    let data: any;
-    return this.http.get<any>(`${this.baseURL}${this.officeID}/${this.gridX},${this.gridY}/forecast`) // Calling HTTP get method
+    return this.http.get<any>(`${this.baseURL}${this.officeID}/${this.gridX},${this.gridY}/forecast?units=si`) // Calling HTTP get method
       .subscribe(res => {
-        data = res.properties.periods.map((p: any) => p.temperature)  // Mapping from array of objects to array of numbers
+        this.data = res.properties.periods.map((p: any) => p.temperature)  // Mapping from array of objects to array of numbers (temperatures)
         this.chart = new Chart({
           title: {  // The chart's main title
-            text: 'Temperature'  // The title of the chart
+            text: '7-day Weather Forecast'  // The title of the chart
           },
           subtitle: { // The chart's subtitle
             text: 'Source: https://www.weather.gov/documentation/services-web-api'  // The subtitle of the chart
@@ -37,7 +36,10 @@ export class HighchartsChartComponent implements OnInit {
           xAxis: {  // The X axis or category axis. Normally this is the horizontal axis
 
             // If categories are present for the xAxis, names are used instead of numbers for that axis
-            categories: res.properties.periods.map((p: any) => p.name), // Mapping from array of objects to array of strings
+            categories: res.properties.periods.map((p: any) => {
+              return `${p.startTime}
+              ${p.endTime}`;
+            }), // Mapping from array of objects to array of strings (start timestamps and end timestamps)
 
             // Configure a crosshair that follows either the mouse pointer or the hovered point.
             crosshair: true
@@ -48,7 +50,7 @@ export class HighchartsChartComponent implements OnInit {
 
             title: {  // The axis title, showing next to the axis line
 
-              text: 'Temperature (°F)' // The actual text of the axis title
+              text: 'Temperature (°C)' // The actual text of the axis title
             }
           },
           tooltip: {  // Options for the tooltip that appears when the user hovers over a series or point
@@ -58,7 +60,7 @@ export class HighchartsChartComponent implements OnInit {
 
             // The HTML of the point's line in the tooltip
             pointFormat: '<tr><td style = "color:{series.color};padding:0">{series.name}: </td>' +
-              '<td style = "padding:0"><b>{point.y}°F</b></td></tr>',
+              '<td style = "padding:0"><b>{point.y}°C</b></td></tr>',
 
             // A string to append to the tooltip format
             footerFormat: '</table>',
@@ -83,7 +85,7 @@ export class HighchartsChartComponent implements OnInit {
           series: [{ // Series options for specific data and the data itself
             type: 'column',
             name: 'Temp',
-            data // An array of data points for the series
+            data: this.data // An array of data points for the series
           }]
         });
       },
